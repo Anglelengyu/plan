@@ -19,10 +19,10 @@ export default new Router({
       component: Login
     },
     {
-      path: '/home',
+      path: '',
       name: 'home',
       component: Home
     }
   ],
-  mode:'history'   //去除#号
+  // mode:'history'   //去除#号
 })

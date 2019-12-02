@@ -2,9 +2,9 @@ server:
   port: 9090
 spring:
   datasource:
-    url: jdbc:mysql:///:3306/plandemo?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql:///plandemo?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
     username: root
-    data-password: root
+    password: root
     driverClassName: com.mysql.jdbc.Driver
     druid:
       initial-size: 5
@@ -30,9 +30,9 @@ pagehelper:
   row-bounds-with-count: true
   page-size-zero: true
 mybatis-plus:
-  global-config:
-    db-config:
-      id-type: auto
+#  global-config:
+#    db-config:
+#      id-type: auto
   mapper-locations: classpath*:mapper/*.xml
   #实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage:  cn.shuhan.plan.domain.entity
