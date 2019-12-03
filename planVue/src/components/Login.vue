@@ -74,10 +74,7 @@
 </template>
 <script>
 
-  import bottom from "@/components/bottom"
-
   export default {
-    comments: {bottom},
     data() {
       return {
         registerFormVisible: false,//注册框

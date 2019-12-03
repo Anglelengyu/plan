@@ -8,7 +8,6 @@ import store from './store/index'
 import 'element-ui/lib/theme-chalk/index.css'
 import {postRequest} from './utils/api'
 
-
 Vue.prototype.postRequest = postRequest;
 Vue.config.productionTip = false
 Vue.use(ElementUI)

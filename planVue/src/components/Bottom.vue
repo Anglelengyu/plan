@@ -34,7 +34,7 @@
 
   #bottom {
 
-    position: absolute;
+    /*position: absolute;*/
     width: 100%;
     color: #303133;
     background: #f7fefe;

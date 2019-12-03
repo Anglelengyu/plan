@@ -1,60 +1,40 @@
 <template>
-  <div class="homeBox">
-    <el-container style="height: 100%" direction="vertical">
-      <el-header id="header" style="height: 100px; background-color: rgba(211,240,243,0.41)">Header</el-header>
-      <el-container>
-        <el-aside width="300px" style="background-color: rgb(238, 241, 246)">
-          <el-menu :default-openeds="['1']">
-            <el-submenu index="1">
-              <template slot="title"><i class="el-icon-message"></i>导航一</template>
-              <el-menu-item-group>
-                <!--<template slot="title">分组一</template>-->
-                <el-menu-item index="1-1">选项1</el-menu-item>
-                <el-menu-item index="1-2">选项2</el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-            <el-submenu index="2">
-              <template slot="title"><i class="el-icon-message"></i>导航二</template>
-              <el-menu-item-group>
-                <!--<template slot="title">分组二</template>-->
-                <el-menu-item index="2-1">选项1</el-menu-item>
-                <el-menu-item index="2-2">选项2</el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-          </el-menu>
-        </el-aside>
-        <el-container>
-          <el-header style="text-align: right; font-size: 20px; height: 30px; background-color: #ffe3d4">
-            <el-dropdown>
-              <i class="el-icon-setting" style="margin-right: 20px; font-size:20px"></i>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>查看</el-dropdown-item>
-                <el-dropdown-item>新增</el-dropdown-item>
-                <el-dropdown-item>删除</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <span>王小虎</span>
-          </el-header>
-          <el-main>
-            <el-table :data="items">
-              <el-table-column prop="date" label="日期" min-width="10px">
-              </el-table-column>
-              <el-table-column prop="name" label="姓名" min-width="10px">
-              </el-table-column>
-              <el-table-column prop="address" label="地址" min-width="50px">
-              </el-table-column>
-            </el-table>
-            <el-pagination
-              background
-              layout="prev, pager, next, jumper, ->, total"
-              :page-size="3"
-              :total="items.length">
-            </el-pagination>
-          </el-main>
-        </el-container>
+  <el-container style="height: 100%">
+    <el-aside width="70%" style="height: 100%">
+      <el-container style="height: 100%">
+        <el-header height="300px">
+          <el-carousel indicator-position="outside">
+            <el-carousel-item v-for="item in items" :key="item">
+              <h3>{{ item }}</h3>
+            </el-carousel-item>
+          </el-carousel>
+        </el-header>
+        <el-main style="height: auto; width: auto">
+          <el-row :gutter="20">
+            <el-col class="grid-content bg-purple" :span="8" v-for="(o, index) in 10" :key="o">
+              <el-card :body-style="{ padding: '10px' }">
+                <div>
+                  <router-link :to="('/login')">
+                    <img src="../images/user.jpg" class="image">
+                  </router-link>
+                </div>
+                <div style="padding: 14px; height: 60px">
+                  <span>好吃的汉堡</span>
+                  <div class="bottom clearfix">
+                    <time class="time">{{ currentDate }}</time>
+                    <el-button type="text" class="button">点击查看</el-button>
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
+        </el-main>
       </el-container>
-    </el-container>
-  </div>
+    </el-aside>
+    <el-main>
+
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -62,95 +42,73 @@
     name: "Home",
     data() {
       return {
-        items: [{
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-      {
-          date: '2016-05-02',
-          name: '王大虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-      {
-          date: '2016-05-02',
-          name: '王大虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-      {
-          date: '2016-05-02',
-          name: '王大虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-      {
-          date: '2016-05-02',
-          name: '王大虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-      {
-          date: '2016-05-02',
-          name: '王大虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-      {
-          date: '2016-05-02',
-          name: '王大虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-      {
-          date: '2016-05-02',
-          name: '王大虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-      {
-          date: '2016-05-02',
-          name: '王大虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-      {
-          date: '2016-05-02',
-          name: '王大虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-      {
-          date: '2016-05-02',
-          name: '王大虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-      {
-          date: '2016-05-02',
-          name: '王大虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }]
+        items: 4,
+        currentDate: new Date()
       }
+    },
+    methods: {
+      // getInfo:function () {
+      //   alert("info")
+      // }
     }
   }
 </script>
 
 <style>
-  /* 主要是添加这一段代码，我这是在另一个vue页面中添加的，我成它为 全局布局的vue*/
-  html, body, #app, .homeBox, .el-container {
-    /*设置内部填充为0，几个布局元素之间没有间距*/
-    padding: 0px;
-    /*外部间距也是如此设置*/
-    margin: 0px;
-    /*统一设置高度为100%*/
-    height: 100%;
+  .el-carousel__item h3 {
+    color: #475669;
+    font-size: 18px;
+    opacity: 0.75;
+    line-height: 300px;
+    margin: 0;
   }
 
-
-  /*.el-aside {*/
-  /*background-color: #D3DCE6;*/
-  /*color: #333;*/
-  /*text-align: center;*/
-  /*line-height: 600px;*/
+  /*.el-main{*/
+  /*color: #475669;*/
+  /*font-size: 18px;*/
+  /*opacity: 0.75;*/
+  /*line-height: 300px;*/
+  /*margin: 0;*/
+  /*background-color: #fc18a9;*/
   /*}*/
 
-  /*.el-main {*/
-  /*background-color: #E9EEF3;*/
-  /*color: #333;*/
-  /*text-align: center;*/
-  /*line-height: 600px;*/
-  /*}*/
+  .el-carousel__item:nth-child(2n) {
+    margin-top: 10px;
+    background-color: #99a9bf;
+  }
 
+  .el-carousel__item:nth-child(2n+1) {
+    margin-top: 10px;
+    background-color: #d3dce6;
+  }
+
+  .time {
+    font-size: 13px;
+    color: #999;
+  }
+
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .button {
+    padding: 0;
+    float: right;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both
+  }
 </style>

@@ -1,17 +1,18 @@
 <template>
   <div id="app">
     <!--<img src="./assets/logo.png">-->
+    <bar/>
     <router-view/>
     <bottom/>
   </div>
 </template>
 
 <script>
-  import bottom from "@/components/bottom"
+  import Bar from "./components/Bar";
   import Bottom from "./components/Bottom";
 
   export default {
-    components: {Bottom},
+    components: {Bar,Bottom},
     name: 'App'
   }
 </script>
