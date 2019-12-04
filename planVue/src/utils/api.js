@@ -3,7 +3,7 @@ import {Message} from 'element-ui'
 
 /*响应处理  request拦截器*/
 axios.interceptors.response.use(data => {
-  console.log(data)
+  // console.log(data)
   if (data.status && data.status == 200 && data.data.status == 500) {
     Message.error({message: data.data.msg})
   }

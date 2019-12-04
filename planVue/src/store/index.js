@@ -8,10 +8,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: {
-      name: window.localStorage.getItem('user' || '[]') == null ? '未登录' : JSON.parse(window.localStorage.getItem('user' || '[]')).name,
-      icon: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).icon,
-      username: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).username,
-      roles: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).roles
+      name: window.localStorage.getItem('user') == null ? '未登录' : window.localStorage.getItem('user'),
+      icon: window.localStorage.getItem('icon') == null ? '' : window.localStorage.getItem('icon'),
+      username: window.localStorage.getItem('username') == null ? '' : window.localStorage.getItem('username'),
+      roles: window.localStorage.getItem('roles') == null ? '' : window.localStorage.getItem('roles')
     },
     routes: [],
     msgList: [],
@@ -20,18 +20,31 @@ export default new Vuex.Store({
     stomp: null,
     nfDot: false
   },
-  // mutations: {
-  //   initMenu(state, menus){
-  //     state.routes = menus;
-  //   },
-    login(state, user){
-      state.user = user;
-      window.localStorage.setItem('user', JSON.stringify(user));
+  mutations: {
+    //   initMenu(state, menus){
+    //     state.routes = menus;
+    //   },
+    login(state, data) {
+      // state.user = user;
+      this.state.user.name = data.name
+      window.localStorage.setItem('name', data.name);
+
+      //存储用户名
+      this.state.user.username = data.username;
+      window.localStorage.setItem('username', data.username)
+
+      this.state.user.roles = data.roles;
+      window.localStorage.setItem('roles', data.roles)
     },
-    logout(state){
-      window.localStorage.removeItem('user');
-      state.routes = [];
+    logout(state) {
+      window.localStorage.removeItem('name');
+      this.state.user.name = '';
+      window.localStorage.removeItem('username');
+      this.state.user.username = '';
+      window.localStorage.removeItem('roles');
+      this.state.user.roles = '';
     }
+  }
   //   toggleNFDot(state, newValue){
   //     state.nfDot = newValue;
   //   },
