@@ -27,6 +27,18 @@ export default new Router({
       path: '/introduction',
       name: 'introduction',
       component: resolve => require(['@/components/introduction'], resolve)
+    },
+    {
+      path: '/articleList',
+      name: 'article',
+      component: resolve => require(['@/components/article/index'], resolve)
+      // children:[
+      //   {
+      //     path: "",
+      //     name: "qq-home",
+      //     component: resolve => require(["@/views/template/home.vue"], resolve)
+      //   }
+      // ]
     }
   ]
   // mode:'history'   //去除#号

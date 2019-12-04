@@ -8,7 +8,7 @@
     background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b">
-    <el-menu-item index="1" style="margin-left: 0%">
+    <el-menu-item index="1" route="/" style="margin-left: 0%">
       <img src="../images/logo.jpg" style="height: 50px"/>
     </el-menu-item>
     <!--<el-submenu index="2" style="margin-left: 2%">-->
@@ -17,11 +17,11 @@
     <!--<el-menu-item index="22">选项2</el-menu-item>-->
     <!--<el-menu-item index="23">选项3</el-menu-item>-->
     <!--</el-submenu>-->
-    <el-menu-item index="2" style="margin-left: 2%" route="/">首页</el-menu-item>
+    <el-menu-item index="2" style="margin-left: 2%" route="/articleList">首页</el-menu-item>
     <el-menu-item index="3" style="margin-left: 2%" route="/introduction">简介</el-menu-item>
 
     <div style="width: 15%;float: left;margin: 10px 2% 0px 2%" class="hidden-xs-only">
-      <el-input placeholder="搜索博客" v-model="searchTxt" suffix-icon="el-icon-search"
+      <el-input placeholder="搜索文章" v-model="searchTxt" suffix-icon="el-icon-search"
                 @keyup.enter.native="searchSubmit"/>
     </div>
     <el-menu-item class="hidden-xs-only" v-if="this.$store.state.user.username ==''" index="" style="margin-left:45%"
