@@ -30,15 +30,13 @@ export default new Router({
     },
     {
       path: '/articleList',
-      name: 'article',
+      name: 'articleList',
       component: resolve => require(['@/components/article/index'], resolve)
-      // children:[
-      //   {
-      //     path: "",
-      //     name: "qq-home",
-      //     component: resolve => require(["@/views/template/home.vue"], resolve)
-      //   }
-      // ]
+    },
+    {
+      path: "/article/:articleId",
+      name: "article",
+      component: resolve => require(["@/components/article/Detail"], resolve)
     }
   ]
   // mode:'history'   //去除#号
