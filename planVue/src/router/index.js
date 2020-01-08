@@ -58,6 +58,23 @@ export default new Router({
               component: resolve => require(["@/components/user/LoginInfoList"], resolve)
             }
           ]
+        },
+        {
+          path: "/article",
+          name: "article",
+          component: resolve => require(["@/components/article/Article"], resolve),
+          children: [
+            {
+              path: "/",
+              name: "articleList",
+              component: resolve => require(["@/components/article/List"], resolve)
+            },
+            {
+              path: "/article/create",
+              name: "articleCreate",
+              component: resolve => require(["@/components/article/Create"], resolve)
+            }
+          ]
         }
       ]
     },

@@ -9,9 +9,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 import {postRequest} from './utils/api'
 import {getRequest} from './utils/api'
 import VueQuillEditor from 'vue-quill-editor'
-// import 'quill/dist/quill.core.css'
-// import 'quill/dist/quill.snow.css'
-// import 'quill/dist/quill.bubble.css'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 
 Vue.prototype.postRequest = postRequest;
 Vue.prototype.getRequest = getRequest;
