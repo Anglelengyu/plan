@@ -17,7 +17,8 @@ public enum  ResultEnum {
     ERROR(501,"失败"),
     LOGIN_ERROR(502,"登录失败,用户名或密码错误"),
     TOKEN_EXPIREE(503,"token失效"),
-    SERVICE_EXPIREE(503,"系统错误，请联系管理员")
+    SERVICE_EXPIREE(503,"系统错误，请联系管理员"),
+    PAGINATION_ERROR(504, "分页信息错误"),
     ;
 
     public Integer code;

@@ -144,8 +144,9 @@
             var data = resp.data;
             _this.$store.commit('login', data.obj);
             var path = _this.$route.query.redirect;
+            console.log(path);
             _this.$router
-              .replace({path: path == '/' || path == undefined ? '/home' : path});
+              .replace({path: path == '/' || path == undefined ? '/manager' : path});
           }
         });
       },

@@ -1,9 +1,10 @@
 package cn.shuhan.plan.mapper;
 
 
-import cn.shuhan.plan.domain.entity.Menu;
+import cn.shuhan.plan.domain.entity.LoginInfo;
+import cn.shuhan.plan.domain.entity.Role;
+import cn.shuhan.plan.domain.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -15,8 +16,5 @@ import java.util.List;
  * @author lengyu
  * @since 2019-11-22
  */
-//@Mapper
-public interface MenuMapper extends BaseMapper<Menu> {
-
-    List<Menu> getAllMenu();
+public interface LoginInfoMapper extends BaseMapper<LoginInfo> {
 }

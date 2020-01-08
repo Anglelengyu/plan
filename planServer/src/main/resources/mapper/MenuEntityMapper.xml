@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.shuhan.plan.mapper.MenuMapper">
 
-    <resultMap id="resultMap" type="cn.shuhan.plan.domain.entity.MenuEntity">
+    <resultMap id="resultMap" type="cn.shuhan.plan.domain.entity.Menu">
         <id column="id" property="id"/>
         <result column="url" property="url"/>
         <result column="path" property="path"/>
@@ -12,7 +12,7 @@
         <result column="requireAuth" property="requireAuth"/>
         <result column="parentId" property="parentId"/>
         <result column="enabled" property="enabled"/>
-        <collection property="children" ofType="cn.shuhan.plan.domain.entity.MenuEntity">
+        <collection property="children" ofType="cn.shuhan.plan.domain.entity.Menu">
             <id column="cid" property="id"/>
             <result column="url" property="url"/>
             <result column="path" property="path"/>
@@ -23,7 +23,7 @@
             <result column="parentId" property="parentId"/>
             <result column="enabled" property="enabled"/>
         </collection>
-        <collection property="roles" ofType="cn.shuhan.plan.domain.entity.RoleEntity">
+        <collection property="roles" ofType="cn.shuhan.plan.domain.entity.Role">
             <id column="rid" property="id"/>
             <result column="rname" property="name"/>
             <result column="rdescription" property="description"/>

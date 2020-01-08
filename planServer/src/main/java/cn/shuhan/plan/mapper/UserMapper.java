@@ -1,8 +1,9 @@
 package cn.shuhan.plan.mapper;
 
 
-import cn.shuhan.plan.domain.entity.RoleEntity;
-import cn.shuhan.plan.domain.entity.UserEntity;
+import cn.shuhan.plan.domain.command.UserCommand;
+import cn.shuhan.plan.domain.entity.Role;
+import cn.shuhan.plan.domain.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,10 +17,16 @@ import java.util.List;
  * @author lengyu
  * @since 2019-11-22
  */
-@Mapper
-public interface UserMapper extends BaseMapper<UserEntity> {
+//@Mapper
+public interface UserMapper extends BaseMapper<User> {
 
-    List<RoleEntity> getRolesByUserName(String username);
+    List<Role> getRolesByUserName(String username);
 
-    UserEntity selectRolesByUsername(String username);
+    User selectRolesByUsername(String username);
+
+    /**
+     * 修改
+     * @param command
+     */
+    void updateByUserId(UserCommand command);
 }

@@ -24,7 +24,7 @@ import java.util.List;
 @Accessors(chain = true)
 @TableName("menu")
 @ApiModel(value="MenuEntity对象", description="")
-public class MenuEntity implements Serializable {
+public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -53,8 +53,8 @@ public class MenuEntity implements Serializable {
 
     private Boolean enabled;
 
-    private List<MenuEntity> children;
+    private List<Menu> children;
 
-    private List<RoleEntity> roles;
+    private List<Role> roles;
 
 }

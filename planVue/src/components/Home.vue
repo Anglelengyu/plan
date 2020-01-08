@@ -15,7 +15,7 @@
               <el-card :body-style="{ padding: '10px' }">
                 <div>
                   <router-link :to="('/login')">
-                    <img src="../images/user.jpg" class="image">
+                    <!--<img src="../images/user.jpg" class="image">-->
                   </router-link>
                 </div>
                 <div style="padding: 14px; height: 60px">

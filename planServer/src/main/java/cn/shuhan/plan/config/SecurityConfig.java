@@ -1,7 +1,7 @@
 package cn.shuhan.plan.config;
 
 import cn.shuhan.plan.domain.dto.ApiResp;
-import cn.shuhan.plan.domain.entity.UserEntity;
+import cn.shuhan.plan.domain.entity.User;
 import cn.shuhan.plan.service.impl.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                                 HttpServletResponse resp,
                                                 Authentication auth) throws IOException {
                 resp.setContentType("application/json;charset=utf-8");
-                UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
                 ApiResp respBean = ApiResp.success("登录成功!", user);
                 ObjectMapper om = new ObjectMapper();
                 PrintWriter out = resp.getWriter();

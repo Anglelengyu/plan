@@ -1,11 +1,11 @@
 package cn.shuhan.plan.domain.entity;
 
-import cn.shuhan.plan.mapper.UserMapper;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import io.swagger.annotations.ApiModel;
@@ -13,7 +13,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,7 +31,7 @@ import org.springframework.util.CollectionUtils;
 @Accessors(chain = true)
 @TableName("user")
 @ApiModel(value="UserEntity对象", description="")
-public class UserEntity implements Serializable, UserDetails {
+public class User implements Serializable, UserDetails {
 
 
     private static final long serialVersionUID = 1L;
@@ -61,21 +60,33 @@ public class UserEntity implements Serializable, UserDetails {
     @ApiModelProperty(value = "地址")
     private String address;
 
+    @ApiModelProperty(value = "邮箱")
+    private String email;
+
     @ApiModelProperty(value = "备注")
     private String remark;
+
+    @ApiModelProperty(value = "注册时间")
+    private Date registerDate;
+
+    @ApiModelProperty(value = "出生日期")
+    private Date birthDate;
+
+    @ApiModelProperty(value = "性别 1-男 2-女")
+    private Integer gender;
 
     @ApiModelProperty(value = "是否禁用 0没禁用 1 禁用  默认0")
     private Boolean isDelete;
 
     @TableField(exist = false)
     @ApiModelProperty(value = "角色")
-    private List<RoleEntity> roles;
+    private List<Role> roles;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-//        List<RoleEntity> roles = userMapper.getRolesByUserName(username);
+//        List<Role> roles = userMapper.getRolesByUserName(username);
         if (CollectionUtils.isEmpty(roles)){
             authorities.add(new SimpleGrantedAuthority("ROLE_NORMAL"));
             return authorities;

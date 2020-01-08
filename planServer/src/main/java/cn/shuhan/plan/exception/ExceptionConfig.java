@@ -53,8 +53,8 @@ public class ExceptionConfig  {
         return ApiResp.fail(ResultEnum.LOGIN_ERROR);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ApiResp exception(Exception e) {
-        return ApiResp.fail(ResultEnum.SERVICE_EXPIREE);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ApiResp exception(Exception e) {
+//        return ApiResp.fail(ResultEnum.SERVICE_EXPIREE);
+//    }
 }

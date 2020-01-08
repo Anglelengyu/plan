@@ -23,7 +23,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #fa93ee;
+    color: #141012;
     margin-top: 60px;
   }
 </style>

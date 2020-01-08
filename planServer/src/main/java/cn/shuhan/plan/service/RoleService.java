@@ -1,10 +1,8 @@
 package cn.shuhan.plan.service;
 
 
-import cn.shuhan.plan.domain.entity.MenuEntity;
+import cn.shuhan.plan.domain.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
 
 /**
  * <p>
@@ -14,7 +12,6 @@ import java.util.List;
  * @author lengyu
  * @since 2019-11-22
  */
-public interface IMenuService extends IService<MenuEntity> {
+public interface RoleService extends IService<Role> {
 
-    List<MenuEntity> getAllMenu();
 }

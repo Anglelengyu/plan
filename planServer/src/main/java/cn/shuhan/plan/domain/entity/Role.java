@@ -21,7 +21,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("role")
 @ApiModel(value="RoleEntity对象", description="")
-public class RoleEntity implements Serializable {
+public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

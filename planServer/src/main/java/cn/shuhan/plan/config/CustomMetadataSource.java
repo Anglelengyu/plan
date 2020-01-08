@@ -1,8 +1,8 @@
 package cn.shuhan.plan.config;
 
-import cn.shuhan.plan.domain.entity.MenuEntity;
-import cn.shuhan.plan.domain.entity.RoleEntity;
-import cn.shuhan.plan.service.IMenuService;
+import cn.shuhan.plan.domain.entity.Menu;
+import cn.shuhan.plan.domain.entity.Role;
+import cn.shuhan.plan.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -26,16 +26,16 @@ import java.util.List;
 @Component
 public class CustomMetadataSource implements FilterInvocationSecurityMetadataSource {
     @Autowired
-    IMenuService menuService;
+    MenuService menuService;
     AntPathMatcher antPathMatcher = new AntPathMatcher();
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) {
         String requestUrl = ((FilterInvocation) o).getRequestUrl();
-        List<MenuEntity> allMenu = menuService.getAllMenu();
-        for (MenuEntity menu : allMenu) {
+        List<Menu> allMenu = menuService.getAllMenu();
+        for (Menu menu : allMenu) {
             if (antPathMatcher.match(menu.getUrl(), requestUrl)   //路径匹配
                     &&menu.getRoles().size()>0) {
-                List<RoleEntity> roles = menu.getRoles();
+                List<Role> roles = menu.getRoles();
                 int size = roles.size();
                 String[] values = new String[size];
                 for (int i = 0; i < size; i++) {

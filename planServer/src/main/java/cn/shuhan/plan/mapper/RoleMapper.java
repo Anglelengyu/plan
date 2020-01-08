@@ -1,6 +1,6 @@
 package cn.shuhan.plan.mapper;
 
-import cn.shuhan.plan.domain.entity.RoleEntity;
+import cn.shuhan.plan.domain.entity.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @author lengyu
  * @since 2019-11-22
  */
-@Mapper
-public interface RoleMapper extends BaseMapper<RoleEntity> {
+//@Mapper
+public interface RoleMapper extends BaseMapper<Role> {
 
 }
