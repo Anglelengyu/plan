@@ -133,13 +133,18 @@ CREATE TABLE `user` (
   `username` varchar(20) DEFAULT NULL COMMENT '用户名',
   `password` varchar(255) DEFAULT NULL COMMENT '密码',
   `pwd` varchar(20) DEFAULT NULL COMMENT '真实密码',
+  `gender` tinyint(2) DEFAULT NULL COMMENT '性别  1-男 2-女',
+  `email` varchar(50) DEFAULT NULL COMMENT '邮件',
+  `birth_date` date DEFAULT NULL COMMENT '出生日期',
   `icon` varchar(255) DEFAULT NULL COMMENT '头像',
   `telephone` varchar(20) DEFAULT NULL COMMENT '电话',
   `address` varchar(50) DEFAULT NULL COMMENT '地址',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `register_date` date DEFAULT NULL COMMENT '注册时间',
   `is_delete` tinyint(1) DEFAULT '0' COMMENT '是否禁用 0没禁用 1 禁用  默认0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
 
 -- ----------------------------
 -- Records of user
@@ -160,6 +165,17 @@ CREATE TABLE `user_role` (
   `role_id` bigint(20) NOT NULL COMMENT '角色id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `login_info`;
+CREATE TABLE `login_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL COMMENT '用户名',
+  `ip` varchar(50) DEFAULT NULL COMMENT 'ip',
+  `login_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '登录时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='登录记录';
+
 
 -- ----------------------------
 -- Records of user_role
