@@ -4,19 +4,19 @@
       <el-button  type="primary" size="small" plain style="margin-right: 5%" @click="createArticle()" >发布文章</el-button>
     </div>
     <div>
-      <el-table :data="loginInfo" style="width: 90%; margin-left: 2%">
-        <el-table-column fixed prop="loginTime"
-                         label="登录时间"
+      <el-table :data="articleList" style="width: 90%; margin-left: 2%">
+        <el-table-column fixed prop="userName"
+                         label="用户名"
                          min-width="10px">
         </el-table-column>
         <el-table-column
-          prop="loginTime"
-          label="登录时间"
+          prop="title"
+          label="标题"
           min-width="10px">
         </el-table-column>
         <el-table-column
-          prop="name"
-          label="姓名"
+          prop="issue_date"
+          label="自动发布时间"
           min-width="10px">
         </el-table-column>
         <el-table-column
@@ -49,34 +49,28 @@
     name: "List",
     data() {
       return {
-        loginInfo: [],
+        articleList: [],
         current: 1,
         pageSize: 10,
         total: 0
       }
     },
     mounted() {
-      this.loadLoginInfoList()
+      this.loadArticleList()
     },
     methods: {
-      // 获取所有用户登录信息
-      loadLoginInfoList: function () {
-        this.loading = true;
+      // 获取所有文章信息
+      loadArticleList: function () {
         const param = {
           pagination: {
             current: this.current,
             pageSize: this.pageSize
           },
           sorterList: []
-          // username: this.form.registerName,
-          // password: this.form.registerPwd,
         }
-        // let url = "/" + this.currentPage + "/" + this.pageSize;
-        // console.log(url)
-        this.postRequest('/user/loginInfoList', param).then(resp => {
-          this.loginInfo = resp.data.data.records;
+        this.postRequest('/article/list', param).then(resp => {
+          this.articleList = resp.data.data.records;
           this.total = resp.data.data.total;
-
           if (resp && resp.status == 200) {
           }
         });

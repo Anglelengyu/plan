@@ -15,7 +15,7 @@ spring:
       validation-query-timeout: 2000
   redis:
     port: 6379
-    host: 127.0.0.1
+    host: 47.96.7.219
     timeout: 1000
     jedis:
       pool:

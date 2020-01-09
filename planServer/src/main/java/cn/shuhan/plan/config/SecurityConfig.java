@@ -1,9 +1,12 @@
 package cn.shuhan.plan.config;
 
 import cn.shuhan.plan.domain.dto.ApiResp;
+import cn.shuhan.plan.domain.dto.UserLoginDTO;
 import cn.shuhan.plan.domain.entity.User;
 import cn.shuhan.plan.service.impl.UserServiceImpl;
+import cn.shuhan.plan.utils.RedisUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -69,6 +72,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                                 Authentication auth) throws IOException {
                 resp.setContentType("application/json;charset=utf-8");
                 User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                // 保存用户信息到redis
+                UserLoginDTO loginDTO = new UserLoginDTO();
+                BeanUtils.copyProperties(user,loginDTO);
+                req.getSession().setAttribute("currentUser", loginDTO);
+//                RedisUtil.set("currentUser", loginDTO);
                 ApiResp respBean = ApiResp.success("登录成功!", user);
                 ObjectMapper om = new ObjectMapper();
                 PrintWriter out = resp.getWriter();
