@@ -29,18 +29,19 @@ public class ArticleController {
     private String username;
 
     @PostMapping("/list")
-    public ApiResp list(@RequestBody ArticleQueryCommand command){
+    public ApiResp list(@RequestBody ArticleQueryCommand command, @SessionAttribute("currentUser") UserLoginDTO currentUser) {
+        command.setUserId(currentUser.getId());
         return ApiResp.success(articleService.listArticle(command));
     }
 
-//    @GetMapping("/detail/{id}")
-//    public ApiResp detail(@PathVariable("id") Long id){
-//        return ApiResp.success(articleService.detail(id));
-//    }
+    @GetMapping("/detail/{id}")
+    public ApiResp detail(@PathVariable("id") Long id) {
+        return ApiResp.success(articleService.detail(id));
+    }
 
     @ApiOperation("添加文章")
     @PostMapping("/create")
-    public ApiResp create(@RequestBody ArticleCommand command,@SessionAttribute("currentUser") UserLoginDTO currentUser){
+    public ApiResp create(@RequestBody ArticleCommand command, @SessionAttribute("currentUser") UserLoginDTO currentUser) {
         command.setUserId(currentUser.getId());
         articleService.create(command);
         return ApiResp.success();

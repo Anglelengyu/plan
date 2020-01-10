@@ -23,7 +23,7 @@
                 <template slot="title"></template>
                 <el-menu-item index="2-1">发布文章</el-menu-item>
                 <el-menu-item index="/article">管理文章</el-menu-item>
-                <el-menu-item index="2-3">添加分类</el-menu-item>
+                <el-menu-item index="/tag">添加分类</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
           </template>

@@ -1,11 +1,17 @@
 import axios from 'axios'
 import {Message} from 'element-ui'
+import store from '../store/index'
 
 /*响应处理  request拦截器*/
 axios.interceptors.response.use(data => {
   // console.log(data)
-  if (data.status && data.status == 200 && data.data.status == 500) {
-    // Message.error({message: data.data.msg})
+  if (data.status && data.status == 200 && data.data.code == 999) {
+    // 清空
+    store.commit('logout')
+    window.location.href = '/'
+  }
+  if (data.status && data.status == 200 && data.data.code !== 200) {
+    Message.error({message: data.data.msg})
   }
   if (data.data.msg) {
     // Message.success({message: data.data.msg});

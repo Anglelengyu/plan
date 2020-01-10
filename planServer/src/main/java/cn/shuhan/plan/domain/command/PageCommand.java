@@ -5,8 +5,11 @@ import cn.shuhan.plan.exception.BaseException;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 分页信息
@@ -31,6 +34,21 @@ public class PageCommand {
             throw BaseException.build(ResultEnum.PAGINATION_ERROR);
         }
         Page userPage = new Page(pageCommand.getPagination().getCurrent(),pageCommand.getPagination().getPageSize());
+        // 排序参数
+        if (!CollectionUtils.isEmpty(pageCommand.getSorterList())){
+            List<Sorter> sorterList = pageCommand.getSorterList();
+            Map<String, List<Sorter>> map = sorterList.stream().collect(Collectors.groupingBy(sorter -> sorter.getOrder()));
+            for (String s : map.keySet()) {
+                if ("asc".equals(s)){
+                    List<String> ascList = map.get(s).stream().map(Sorter::getField).collect(Collectors.toList());
+                    userPage.setAscs(ascList);
+                }
+                if ("desc".equals(s)){
+                    List<String> descList = map.get(s).stream().map(Sorter::getField).collect(Collectors.toList());
+                    userPage.setDescs(descList);
+                }
+            }
+        }
         return userPage;
     }
 

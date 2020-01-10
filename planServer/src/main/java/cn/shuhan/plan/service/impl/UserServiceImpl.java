@@ -95,7 +95,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public IPage loginInfoList(LoginInfoQueryCommand command) {
         Page page = PageCommand.builder(command);
-        IPage<LoginInfo> dto = loginMapper.selectPage(page, new QueryWrapper<>());
+        LambdaQueryWrapper<LoginInfo> queryWrapper = new QueryWrapper<LoginInfo>().lambda()
+                .orderByDesc(LoginInfo::getLoginTime);
+        IPage<LoginInfo> dto = loginMapper.selectPage(page, queryWrapper);
         return dto;
     }
 }

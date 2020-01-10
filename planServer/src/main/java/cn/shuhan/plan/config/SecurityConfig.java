@@ -76,7 +76,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 UserLoginDTO loginDTO = new UserLoginDTO();
                 BeanUtils.copyProperties(user,loginDTO);
                 req.getSession().setAttribute("currentUser", loginDTO);
-//                RedisUtil.set("currentUser", loginDTO);
                 ApiResp respBean = ApiResp.success("登录成功!", user);
                 ObjectMapper om = new ObjectMapper();
                 PrintWriter out = resp.getWriter();
@@ -128,7 +127,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/index.html", "/static/**", "/login_err", "/favicon.ico", "/register");   //放行
+        web.ignoring().antMatchers("/index.html", "/static/**", "/user/logonErr", "/favicon.ico", "/register");   //放行
     }
 
     @Override
@@ -142,7 +141,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         return o;
                     }
                 }).and()
-                .formLogin().loginPage("/login_err")
+                .formLogin().loginPage("/user/logonErr")
                 .loginProcessingUrl("login").permitAll()
                 .and()
                 .logout().logoutUrl("logout")

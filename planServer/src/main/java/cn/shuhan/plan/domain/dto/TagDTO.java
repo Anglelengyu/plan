@@ -1,4 +1,4 @@
-package cn.shuhan.plan.domain.command;
+package cn.shuhan.plan.domain.dto;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -20,22 +20,29 @@ import java.util.Date;
  * @since 2019-11-22
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("login_info")
-@ApiModel(value="LoginInfo对象", description="")
-public class LoginInfoQueryCommand extends PageCommand{
+public class TagDTO {
 
+    @ApiModelProperty(value = "id")
+    @TableId(type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty(value = "用户id")
     private Long userId;
 
+    @ApiModelProperty(value = "标签名")
     private String name;
 
-    private String ip;
+    @ApiModelProperty(value = "标签说明")
+    private String remark;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date loginTime;
+    @ApiModelProperty(value = "状态 1启用 0禁用")
+    private Integer status;
 
+    @ApiModelProperty(value = "状态 1正常 0删除")
+    private Integer dataStatus;
+
+    @ApiModelProperty(value = "创建时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date createTime;
 }

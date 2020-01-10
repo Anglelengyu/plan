@@ -8,7 +8,7 @@ public enum  ResultEnum {
     OK(200,"成功"),
 
     //权限 300-
-    NO_PERMISSION(304,"没有权限"),
+    NO_PERMISSION(403,"没有权限"),
 
     //资源400-
     NOT_FOUND(404,"数据不存在"),
@@ -19,6 +19,8 @@ public enum  ResultEnum {
     TOKEN_EXPIREE(503,"token失效"),
     SERVICE_EXPIREE(503,"系统错误，请联系管理员"),
     PAGINATION_ERROR(504, "分页信息错误"),
+
+    NO_LOGIN(999,"未登录"),
     ;
 
     public Integer code;

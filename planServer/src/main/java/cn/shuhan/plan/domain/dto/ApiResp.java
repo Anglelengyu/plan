@@ -1,6 +1,7 @@
 package cn.shuhan.plan.domain.dto;
 
 import cn.shuhan.plan.enums.ResultEnum;
+import cn.shuhan.plan.exception.BaseException;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.context.annotation.Bean;
@@ -50,9 +51,9 @@ public class ApiResp implements Serializable {
         return fail(resultEnum.code, resultEnum.msg, data);
     }
 
-//    public static ApiResp fail(SaasBaseException e) {
-//        return fail(e.getCode(), e.getMsg());
-//    }
+    public static ApiResp fail(BaseException e) {
+        return fail(e.getCode(), e.getMsg());
+    }
 
     public static ApiResp fail(Integer code, String msg) {
         return fail(code, msg, null);

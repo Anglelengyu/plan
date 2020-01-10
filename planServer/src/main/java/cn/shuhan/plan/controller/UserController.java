@@ -4,6 +4,8 @@ import cn.shuhan.plan.domain.command.LoginInfoQueryCommand;
 import cn.shuhan.plan.domain.command.UserCommand;
 import cn.shuhan.plan.domain.command.UserQueryCommand;
 import cn.shuhan.plan.domain.dto.ApiResp;
+import cn.shuhan.plan.enums.ResultEnum;
+import cn.shuhan.plan.exception.BaseException;
 import cn.shuhan.plan.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,12 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+
+    @ApiOperation("未登录")
+    @GetMapping("/logonErr")
+    public ApiResp logonErr(){
+        return ApiResp.fail(ResultEnum.NO_LOGIN);
+    }
 
     @PostMapping("/list")
     public ApiResp list(@RequestBody UserQueryCommand command){

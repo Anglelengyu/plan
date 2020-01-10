@@ -1,6 +1,7 @@
 package cn.shuhan.plan.service.impl;
 
 import cn.shuhan.plan.domain.command.*;
+import cn.shuhan.plan.domain.dto.ArticleDTO;
 import cn.shuhan.plan.domain.entity.Article;
 import cn.shuhan.plan.domain.entity.LoginInfo;
 import cn.shuhan.plan.domain.entity.User;
@@ -48,9 +49,19 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
+    public ArticleDTO detail(Long id) {
+        Article article = articleMapper.selectById(id);
+        ArticleDTO dto = new ArticleDTO();
+        BeanUtils.copyProperties(article,dto);
+
+        return dto;
+    }
+
+    @Override
     public void create(ArticleCommand command) {
         Article article = new Article();
         BeanUtils.copyProperties(command,article);
+        article.setCreateTime(new Date());
         articleMapper.insert(article);
     }
 

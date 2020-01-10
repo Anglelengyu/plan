@@ -73,7 +73,34 @@ export default new Router({
               path: "/article/create",
               name: "articleCreate",
               component: resolve => require(["@/components/article/Create"], resolve)
+            },
+            {
+              path: "/article/detail/:id",
+              name: "articleDetail",
+              component: resolve => require(["@/components/article/Detail"], resolve)
             }
+          ]
+        },
+        {
+          path: "/tag",
+          name: "tag",
+          component: resolve => require(["@/components/tag/Tag"], resolve),
+          children: [
+            {
+              path: "/",
+              name: "tagList",
+              component: resolve => require(["@/components/tag/List"], resolve)
+            },
+            // {
+            //   path: "/tag/create",
+            //   name: "tagCreate",
+            //   component: resolve => require(["@/components/tag/Create"], resolve)
+            // },
+            // {
+            //   path: "/tag/detail/:id",
+            //   name: "tagDetail",
+            //   component: resolve => require(["@/components/tag/Detail"], resolve)
+            // }
           ]
         }
       ]

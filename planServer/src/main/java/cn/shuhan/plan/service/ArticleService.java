@@ -2,6 +2,7 @@ package cn.shuhan.plan.service;
 
 import cn.shuhan.plan.domain.command.ArticleCommand;
 import cn.shuhan.plan.domain.command.ArticleQueryCommand;
+import cn.shuhan.plan.domain.dto.ArticleDTO;
 import cn.shuhan.plan.domain.entity.Article;
 import cn.shuhan.plan.domain.entity.LoginInfo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -20,4 +21,6 @@ public interface ArticleService extends IService<Article> {
     void create(ArticleCommand command);
 
     IPage listArticle(ArticleQueryCommand command);
+
+    ArticleDTO detail(Long id);
 }

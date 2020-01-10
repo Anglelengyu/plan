@@ -46,8 +46,12 @@ public class Article implements Serializable {
     private Integer issueStatus;
 
     @ApiModelProperty(value = "自动发布时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm;ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm;ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date issueDate;
 
+    @ApiModelProperty(value = "创建时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date createTime;
 }

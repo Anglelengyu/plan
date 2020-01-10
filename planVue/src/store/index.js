@@ -47,6 +47,8 @@ export default new Vuex.Store({
       this.state.user.name = '';
       window.localStorage.removeItem('username');
       this.state.user.username = '';
+      window.localStorage.removeItem('icon');
+      this.state.user.icon = '';
       window.localStorage.removeItem('roles');
       this.state.user.roles = '';
     }

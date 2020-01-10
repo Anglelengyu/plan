@@ -43,6 +43,7 @@
     </div>
     <el-button v-on:click="saveHtml()">保存</el-button>
     <el-button v-on:click="saveHtmlNote()">存草稿</el-button>
+    <el-button href="javascript: void(0);" role="button" onclick="window.history.back()">取消</el-button>
   </div>
 </template>
 
@@ -54,12 +55,15 @@
     [{list: "ordered"}, {list: "bullet"}],
     [{indent: "-1"}, {indent: "+1"}], // outdent/indent
     [{direction: "rtl"}], // text direction
+    ["code-block"],
     [{size: ["small", false, "large", "huge"]}], // custom dropdown
     [{header: [1, 2, 3, 4, 5, 6, false]}],
     [{color: []}, {background: []}], // dropdown with defaults from theme
     [{font: []}],
     [{align: []}],
     ["image"],
+    ["link"],
+    ["blockquote"],
     ["clean"]
   ];
   const titleConfig = [
@@ -184,11 +188,13 @@
         }
         console.log(param)
         // TODO 保存文章
-        this.postRequest("/article/create",param).then(resp =>{
+        this.postRequest("/article/create", param).then(resp => {
           // if (resp.data.)
-          this.$router.push({ //路由跳转到文章列表
-            path: '/article'
-          });
+          if (resp.data.code == 200) {
+            this.$router.push({ //路由跳转到文章列表
+              path: '/article'
+            });
+          }
         });
       },
       saveHtmlNote: function (event) {
