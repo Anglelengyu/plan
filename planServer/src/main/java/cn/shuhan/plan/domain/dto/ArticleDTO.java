@@ -30,8 +30,14 @@ public class ArticleDTO{
     @ApiModelProperty(value = "用户名称")
     private String userName;
 
+    @ApiModelProperty(value = "用户头像")
+    private String icon;
+
     @ApiModelProperty(value = "文章分类")
     private Long tagId;
+
+    @ApiModelProperty(value = "文章分类名称")
+    private String tagName;
 
     @ApiModelProperty(value = "文章标题")
     private String title;

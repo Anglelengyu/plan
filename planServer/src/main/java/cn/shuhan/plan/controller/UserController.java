@@ -29,6 +29,12 @@ public class UserController {
         return ApiResp.fail(ResultEnum.NO_LOGIN);
     }
 
+    @ApiOperation("退出登录")
+    @GetMapping("/logout")
+    public ApiResp logout(){
+        return ApiResp.fail(ResultEnum.NO_LOGIN);
+    }
+
     @PostMapping("/list")
     public ApiResp list(@RequestBody UserQueryCommand command){
         return ApiResp.success(userService.listUser(command));

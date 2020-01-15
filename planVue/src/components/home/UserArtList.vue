@@ -11,12 +11,13 @@
               <h3 id="title">{{data.title}}</h3>
             </el-link>
             <!--<div style="right: 10%;width: 10%">-->
-            <span style="margin-left: 80%; width: 5%" title="编辑" v-if="index === targetIndex">
-              <el-link class="el-icon-edit-outline" :underline="false"></el-link>
-            </span>
-            <span style="width: 5%;margin-left: 1%;" title="删除" v-if="index === targetIndex">
-             <el-link class="el-icon-delete" :underline="false"></el-link>
-            </span>
+            <!--<span style="margin-left: 10%; width: 5%" title="编辑" v-if="name === data.userName && index === targetIndex" @click="update(data.id)">-->
+              <!--<el-link class="el-icon-edit-outline" :underline="false"></el-link>-->
+            <!--</span>-->
+            <!--<span style="width: 5%;margin-left: 1%;" title="删除" v-if="name === data.userName && index === targetIndex"-->
+                  <!--@click="deleteArt(data.id)">-->
+             <!--<el-link class="el-icon-delete" :underline="false"></el-link>-->
+            <!--</span>-->
             <!--</div>-->
           </div>
           <div style="margin-left: 2%; font-size: 14px;">
@@ -32,7 +33,7 @@
             <span class="hidden-xs-only" style="width: auto;text-align: center;">
         &nbsp;{{data.name}}</span>
 
-            <span class="el-icon-time hidden-xs-only" style="width: auto">&nbsp;{{getTime(currentDate)}}</span>
+            <span class="el-icon-time hidden-xs-only" style="width: auto">&nbsp;{{data.createTime}}</span>
 
             <!--<span class="el-icon-chat-line-square hidden-xs-only" style="width: 10%">&nbsp;{{discussCount}}</span>-->
 
@@ -40,10 +41,11 @@
             <span class="hidden-xs-only" style="width: auto">
                 <!--<span v-for="tag in tags" style="width: 100%">-->
                   <el-tag size="small" type="success" style="margin-left: 5px">{{data.tagName}}</el-tag>
-                <!--</span>-->
+              <!--</span>-->
               </span>
             <span class="el-icon-view hidden-xs-only"
-                  style="right: -20%;position: relative;">
+                  style="position: relative; margin-left: 20%; width: auto">
+                  <!--style="right: -20%;position: relative;">-->
               <el-link @click="router(Index)" :underline="false">
                 <span style="color: #8a8a8a">
                    &nbsp;访问人数
@@ -64,6 +66,13 @@
                 </span>
               </el-link>
           </span>
+            <span style="width: auto;  margin-left: 10%;" title="编辑" v-if="name === data.userName && index === targetIndex" @click="update(data.id)">
+              <el-link class="el-icon-edit-outline" :underline="false"></el-link>
+            </span>
+            <span style="width: 5%;margin-left: 1%;" title="删除" v-if="name === data.userName && index === targetIndex"
+                  @click="deleteArt(data.id)">
+             <el-link class="el-icon-delete" :underline="false"></el-link>
+            </span>
             <!--</p>-->
           </div>
         </div>
@@ -102,7 +111,6 @@
         blogViews: 0,
         discussCount: 0,
         name: this.$store.state.user.name,
-        icon: this.$store.state.user.icon,
         id: 1,
         current: 1,
         pageSize: 5,
@@ -124,29 +132,13 @@
           },
           sorterList: []
         }
-        // 判断是全部文章还是个人
-        let type = this.$route.params.type;
-        console.log(type)
-        if ("all" === type){
-          this.postRequest('/article/listByUserId', param).then(resp => {
-            console.log(resp.data.data)
-            this.loading = false;
-            this.articleList = resp.data.data.records;
-            this.total = resp.data.data.total;
-            if (resp && resp.status == 200) {
-            }
-          });
-        }
-        if ("user" === type){
-          this.postRequest('/article/list', param).then(resp => {
-            console.log(resp.data.data)
-            this.loading = false;
-            this.articleList = resp.data.data.records;
-            this.total = resp.data.data.total;
-            if (resp && resp.status == 200) {
-            }
-          });
-        }
+        this.postRequest('/article/listByUserId', param).then(resp => {
+          console.log(resp.data.data)
+          this.articleList = resp.data.data.records;
+          this.total = resp.data.data.total;
+          if (resp && resp.status == 200) {
+          }
+        });
 
       },
       router(id) {
@@ -154,6 +146,37 @@
         console.log(id)
         this.$router.push({ //路由跳转到文章详情
           path: '/article/' + id
+        });
+      },
+      // 编辑
+      update: function (id) {
+        console.log(id)
+        this.$router.push({ //路由跳转到文章新建
+          path: '/article/update/' + id
+        });
+      },
+      // 删除
+      deleteArt: function (id) {
+        this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+
+          this.getRequest("/article/deleteArt?id=" + id).then(resp => {
+            if (resp.status == 200) {
+              this.loadArticle();
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              });
+            }
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
         });
       },
       //时间格式化

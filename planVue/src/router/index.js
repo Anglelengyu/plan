@@ -78,6 +78,11 @@ export default new Router({
               path: "/article/detail/:id",
               name: "articleDetail",
               component: resolve => require(["@/components/article/Detail"], resolve)
+            },
+            {
+              path: "/article/update/:id",
+              name: "articleUpdate",
+              component: resolve => require(["@/components/article/Update"], resolve)
             }
           ]
         },
@@ -111,19 +116,24 @@ export default new Router({
       component: resolve => require(['@/components/Home'], resolve)
     },
     {
-      path: '/int0roduction',
+      path: '/introduction',
       name: 'introduction',
-      component: resolve => require(['@/components/introduction'], resolve)
+      component: resolve => require(['@/components/Introduction'], resolve)
     },
     {
       path: '/articleList',
       name: 'articleList',
-      component: resolve => require(['@/components/article/Index'], resolve)
+      component: resolve => require(['@/components/home/Index'], resolve)
+    },
+    {
+      path: '/userArticleList',
+      name: 'userArticleList',
+      component: resolve => require(['@/components/home/UserArtList'], resolve)
     },
     {
       path: "/article/:articleId",
       name: "article",
-      component: resolve => require(["@/components/article/Detail"], resolve)
+      component: resolve => require(["@/components/home/NoUserDetail"], resolve)
     },
     {
       path: "/editor",

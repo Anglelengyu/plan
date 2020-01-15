@@ -22,5 +22,11 @@ public interface ArticleService extends IService<Article> {
 
     IPage listArticle(ArticleQueryCommand command);
 
+    IPage listByUserId(ArticleQueryCommand command);
+
     ArticleDTO detail(Long id);
+
+    void updateArt(ArticleCommand command);
+
+    void deleteArt(Long id);
 }

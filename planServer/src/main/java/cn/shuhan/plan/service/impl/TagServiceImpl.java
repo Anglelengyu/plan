@@ -2,6 +2,7 @@ package cn.shuhan.plan.service.impl;
 
 import cn.shuhan.plan.domain.command.*;
 import cn.shuhan.plan.domain.dto.ArticleDTO;
+import cn.shuhan.plan.domain.dto.PulldownDTO;
 import cn.shuhan.plan.domain.dto.TagDTO;
 import cn.shuhan.plan.domain.entity.Article;
 import cn.shuhan.plan.domain.entity.Tag;
@@ -84,5 +85,11 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     @Override
     public void changeStatus(Long id, Integer status, Integer dataStatus) {
         tagMapper.ChangStatus(id, status,dataStatus);
+    }
+
+    @Override
+    public List<PulldownDTO> pulldownTags() {
+        List<PulldownDTO> dto = tagMapper.listPulldown();
+        return dto;
     }
 }

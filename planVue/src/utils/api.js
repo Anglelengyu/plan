@@ -8,7 +8,7 @@ axios.interceptors.response.use(data => {
   if (data.status && data.status == 200 && data.data.code == 999) {
     // 清空
     store.commit('logout')
-    window.location.href = '/'
+    // window.location.href = '/'
   }
   if (data.status && data.status == 200 && data.data.code !== 200) {
     Message.error({message: data.data.msg})

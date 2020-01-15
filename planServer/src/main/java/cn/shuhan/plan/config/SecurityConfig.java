@@ -74,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
                 // 保存用户信息到redis
                 UserLoginDTO loginDTO = new UserLoginDTO();
-                BeanUtils.copyProperties(user,loginDTO);
+                BeanUtils.copyProperties(user, loginDTO);
                 req.getSession().setAttribute("currentUser", loginDTO);
                 ApiResp respBean = ApiResp.success("登录成功!", user);
                 ObjectMapper om = new ObjectMapper();
@@ -93,17 +93,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 ApiResp respBean = null;
                 if (e instanceof BadCredentialsException ||
                         e instanceof UsernameNotFoundException) {
-                    respBean = ApiResp.fail(300,"账户名或者密码输入错误!");
+                    respBean = ApiResp.fail(300, "账户名或者密码输入错误!");
                 } else if (e instanceof LockedException) {
-                    respBean = ApiResp.fail(300,"账户被锁定，请联系管理员!");
+                    respBean = ApiResp.fail(300, "账户被锁定，请联系管理员!");
                 } else if (e instanceof CredentialsExpiredException) {
-                    respBean = ApiResp.fail(300,"密码过期，请联系管理员!");
+                    respBean = ApiResp.fail(300, "密码过期，请联系管理员!");
                 } else if (e instanceof AccountExpiredException) {
-                    respBean = ApiResp.fail(300,"账户过期，请联系管理员!");
+                    respBean = ApiResp.fail(300, "账户过期，请联系管理员!");
                 } else if (e instanceof DisabledException) {
-                    respBean = ApiResp.fail(300,"账户被禁用，请联系管理员!");
+                    respBean = ApiResp.fail(300, "账户被禁用，请联系管理员!");
                 } else {
-                    respBean = ApiResp.fail(300,"登录失败!");
+                    respBean = ApiResp.fail(300, "登录失败!");
                 }
                 resp.setStatus(401);
                 ObjectMapper om = new ObjectMapper();
@@ -127,7 +127,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/index.html", "/static/**", "/user/logonErr", "/favicon.ico", "/register");   //放行
+        web.ignoring().antMatchers("/article/list", "/article/detail/**", "/index.html", "/static/**", "/user/logonErr", "/favicon.ico", "/register");   //放行
     }
 
     @Override
@@ -144,7 +144,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/user/logonErr")
                 .loginProcessingUrl("login").permitAll()
                 .and()
-                .logout().logoutUrl("logout")
+                .logout().logoutUrl("/user/logout")
                 .logoutSuccessHandler(new LogoutSuccessHandler() {
                     @Override
                     public void onLogoutSuccess(HttpServletRequest req, HttpServletResponse resp, Authentication authentication) throws IOException, ServletException {
@@ -156,10 +156,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         out.flush();
                         out.close();
                     }
-                }).permitAll()
+                }).deleteCookies("JSESSIONID")
+                .permitAll()
                 .and()
                 .csrf().disable()
                 .addFilterAt(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().accessDeniedHandler(deniedHandler);
     }
 }
+
+

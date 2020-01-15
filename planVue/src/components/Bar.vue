@@ -12,20 +12,32 @@
         text-color="D3F0F3"
         active-text-color="#ffd04b">
         <el-menu-item index="1" route="/" style="margin-left: 0%">
-          <img src="../images/logo.jpg" style="height: 50px"/>
+          <img src="../assets/logo.png" style="height: 50px"/>
         </el-menu-item>
-        <el-menu-item index="2" style="margin-left: 2%" route="/articleList">首页</el-menu-item>
+        <el-menu-item index="2" style="margin-left: 2%" route="/articleList">所有文章</el-menu-item>
         <el-menu-item index="3" style="margin-left: 2%" route="/introduction">简介</el-menu-item>
+        <el-menu-item index="4" style="margin-left: 2%" v-if="user.username !=''" route="/userArticleList">我的文章
+        </el-menu-item>
 
         <div style="width: 15%;float: left;margin: 10px 2% 0px 2%" class="hidden-xs-only">
           <el-input placeholder="搜索文章" v-model="searchTxt" suffix-icon="el-icon-search"
                     @keyup.enter.native="searchSubmit"/>
         </div>
         <el-menu-item class="hidden-xs-only" v-if="this.$store.state.user.username ==''" index=""
-                      style="margin-left:45%"
+                      style="margin-left: 45%"
                       @click="loginFormVisible = true">
           登录
         </el-menu-item>
+        <el-submenu index="20" v-if="user.username !=''" style="margin-left: 30%">
+          <template slot="title">
+            {{user.name}}
+            <i><img v-if="user.icon!=''" :src="this.$store.state.user.icon"
+                    style="width: 40px;height: 40px;margin-right: 5px;margin-left: 5px;border-radius: 40px"/></i>
+          </template>
+          <el-menu-item index="/manager">个人中心</el-menu-item>
+          <!--<el-menu-item index="202">用户设置</el-menu-item>-->
+          <el-menu-item index="203">退出登录</el-menu-item>
+        </el-submenu>
         <el-dialog title="登录" :visible.sync="loginFormVisible" width="21%">
           <el-form :rules="rules" :model="loginForm" ref="loginForm" class="login-container" label-position="left"
                    label-width="0px" v-loading="loading">
@@ -52,17 +64,6 @@
             </el-form-item>
           </el-form>
         </el-dialog>
-        <el-submenu index="20" v-if="user.username !=''" style="margin-left: 45%">
-          <template slot="title">
-            {{user.name}}
-            <i><img v-if="user.icon!=''" :src="this.$store.state.user.icon"
-                    style="width: 40px;height: 40px;margin-right: 5px;margin-left: 5px;border-radius: 40px"/></i>
-          </template>
-          <el-menu-item index="201">个人中心</el-menu-item>
-          <el-menu-item index="202">用户设置</el-menu-item>
-          <el-menu-item index="203">退出登录</el-menu-item>
-        </el-submenu>
-
       </el-menu>
     </el-row>
   </div>
@@ -145,6 +146,9 @@
       },
       //退出登录
       logout: function () {
+        this.postRequest('/user/logout').then(resp =>{
+
+        })
         this.$store.commit('logout')
       }
     }

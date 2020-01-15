@@ -61,7 +61,7 @@
     },
     methods: {
       loadArticleDetail: function () {
-        let articleId = this.$route.params.id;
+        let articleId = this.$route.params.articleId;
         console.log(articleId)
         this.getRequest("/article/detail/" + articleId).then(resp => {
           this.form = resp.data.data

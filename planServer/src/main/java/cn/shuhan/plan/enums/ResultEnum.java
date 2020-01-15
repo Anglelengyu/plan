@@ -21,6 +21,12 @@ public enum  ResultEnum {
     PAGINATION_ERROR(504, "分页信息错误"),
 
     NO_LOGIN(999,"未登录"),
+    LOGOUT(998,"退出登录"),
+
+
+
+    // 基础错误 1000+
+    NO_DATA(1000,"数据不存在，请核实"),
     ;
 
     public Integer code;

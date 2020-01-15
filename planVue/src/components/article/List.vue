@@ -27,6 +27,7 @@
         <el-table-column fixed="right" label="操作" min-width="10px">
           <template slot-scope="scope">
             <el-button @click="detail(scope.row.id)" type="text" size="small">查看</el-button>
+            <el-button @click="update(scope.row.id)" type="text" size="small">编辑</el-button>
             <el-button @click="deleteArt(scope.row.id)" type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
@@ -69,7 +70,7 @@
           },
           sorterList: []
         }
-        this.postRequest('/article/list', param).then(resp => {
+        this.postRequest('/article/listByUserId', param).then(resp => {
           this.articleList = resp.data.data.records;
           this.total = resp.data.data.total;
           if (resp && resp.status == 200) {
@@ -89,6 +90,13 @@
           path: '/article/detail/' + id
         });
       },
+      // 编辑
+      update: function (id) {
+        console.log(id)
+        this.$router.push({ //路由跳转到文章新建
+          path: '/article/update/' + id
+        });
+      },
       // 删除
       deleteArt: function (id) {
         this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
@@ -96,12 +104,15 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          // TODO 调用删除接口
 
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
+          this.getRequest("/article/deleteArt?id="+id).then(resp =>{
+            if (resp.status == 200){
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              });
+            }
+          })
         }).catch(() => {
           this.$message({
             type: 'info',

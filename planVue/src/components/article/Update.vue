@@ -6,8 +6,8 @@
              label-width="80px">
       <el-row :gutter="20">
         <el-col span="6">
-          <el-form-item label="分类" prop="tag" label-position="left">
-            <el-select style="width: 100%" clearable v-model="form.tag" placeholder="请选择">
+          <el-form-item label="分类" prop="tagId" label-position="left">
+            <el-select style="width: 100%" @change="onSelectedDrug($event)" clearable v-model="form.tagId" placeholder="请选择">
               <el-option
                 v-for="item in tags"
                 :key="item.id"
@@ -34,21 +34,20 @@
   background-color: #fff;">
       <quill-editor
         style="height: 90%"
-        v-model="content"
+        v-model="form.content"
         ref="myQuillEditor"
         :options="editorOption"
         @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
         @change="onEditorChange($event)">
       </quill-editor>
     </div>
-    <el-button v-on:click="saveHtml()">保存</el-button>
-    <el-button v-on:click="saveHtmlNote()">存草稿</el-button>
-    <el-button href="javascript: void(0);" role="button" onclick="window.history.back()">取消</el-button>
+    <el-button v-on:click="saveHtml()" class="el-icon-edit">修改</el-button>
+    <el-button href="javascript: void(0);" role="button" class="el-icon-back" onclick="window.history.back()">取消
+    </el-button>
   </div>
 </template>
 
 <script>
-
   const toolbarOptions = [
     ["bold", "italic", "underline", "strike"], // toggled buttons
     [{header: 1}, {header: 2}], // custom button values
@@ -120,22 +119,20 @@
       title: "两端对齐"
     }
   ];
-
   export default {
-    name: "Create",
+    name: "Update",
     data() {
       return {
-        tags: [],
+        form: {},
         rules: {
-          tag: [
-            {required: true, message: '标题', trigger: 'blur'}
+          tagId: [
+            {required: true, message: '请选择文章分类', trigger: 'change'}
           ],
           title: [
-            {required: true, message: '标题', trigger: 'blur'}
+            {required: true, message: '请填写标题', trigger: 'blur'}
           ]
         },
-        form: {},
-        content: `<p>hello world</p>`,
+        tags: {},
         editorOption: {
           modules: {
             toolbar: toolbarOptions
@@ -143,12 +140,8 @@
         }
       }
     },
-    computed: {
-      editor() {
-        return this.$refs.myQuillEditor.quill;
-      }
-    },
-    mounted() {
+    mounted: function () {
+      this.loadArticleDetail();
       this.loadPulldownTags();
       //初始化编辑器文字提示
       autotip: {
@@ -172,6 +165,12 @@
           }
         });
       },
+      loadArticleDetail: function () {
+        let articleId = this.$route.params.id;
+        this.getRequest("/article/detail/" + articleId).then(resp => {
+          this.form = resp.data.data
+        })
+      },
       onEditorReady(editor) { // 准备编辑器
       },
       onEditorBlur() {
@@ -182,16 +181,20 @@
       }, // 内容改变事件
       saveHtml: function (event) {
         // alert(this.content);
+        // 获取下拉的数据
+        this.onSelectedDrug(this.form.tagId);
         const param = {
-          tagId: this.form.tag,
+          id: this.form.id,
+          tagId: this.form.tagId,
+          tagName: this.form.tagName,
           issueDate: this.form.issueDate,
           title: this.form.title,
-          content: this.content,
+          content: this.form.content,
           issueStatus: 1
         }
         console.log(param)
         // TODO 保存文章
-        this.postRequest("/article/create", param).then(resp => {
+        this.postRequest("/article/update", param).then(resp => {
           // if (resp.data.)
           if (resp.data.code == 200) {
             this.$router.push({ //路由跳转到文章列表
@@ -203,13 +206,28 @@
       saveHtmlNote: function (event) {
         // alert(this.content);
         const param = {
-          tagId: this.form.tag,
+          id: this.form.id,
+          tagId: this.form.tagName.id,
+          tagName: this.form.tagName.name,
           issueDate: this.form.issueDate,
           title: this.form.title,
           content: this.content,
           issueStatus: 0
         }
         console.log(param)
+      },
+      // 下拉所有数据
+      onSelectedDrug(e){
+        console.log(e)
+        let obj = {};
+        obj = this.tags.find((item)=>{//这里的userList就是上面遍历的数据源
+          return item.id === e;//筛选出匹配数据
+        });
+        // this.form.tagName = obj
+        console.log(this.form.tagName)
+        // console.log(obj.id);//获取的 name
+        // console.log(e);//获取的 id
+
       }
     }
   }

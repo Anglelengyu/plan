@@ -2,10 +2,13 @@
   <el-container style="height: 100%">
     <el-aside width="70%" style="height: 100%">
       <el-container style="height: 100%">
-        <el-header height="300px">
+        <el-header height="auto">
           <el-carousel indicator-position="outside">
             <el-carousel-item v-for="item in items" :key="item">
-              <h3>{{ item }}</h3>
+              <img src="../assets/logo.png" height="100%">
+            </el-carousel-item>
+            <el-carousel-item v-for="item in items" :key="item">
+              <img src="../assets/welcome.jpg" height="100%">
             </el-carousel-item>
           </el-carousel>
         </el-header>
@@ -42,7 +45,7 @@
     name: "Home",
     data() {
       return {
-        items: 4,
+        items: 2,
         currentDate: new Date()
       }
     },

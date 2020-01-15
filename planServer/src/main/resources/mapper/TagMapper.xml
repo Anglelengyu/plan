@@ -20,6 +20,16 @@
         </trim>
         WHERE id = #{id}
     </update>
+    <select id="listPulldown" resultType="cn.shuhan.plan.domain.dto.PulldownDTO">
+        SELECT
+        id AS id,
+        `name` AS name
+        FROM
+        tag
+        WHERE
+        data_status = 1
+        AND status = 1
+    </select>
 
 </mapper>
 

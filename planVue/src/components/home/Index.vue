@@ -11,10 +11,10 @@
               <h3 id="title">{{data.title}}</h3>
             </el-link>
             <!--<div style="right: 10%;width: 10%">-->
-            <span style="margin-left: 80%; width: 5%" title="编辑" v-if="index === targetIndex">
+            <span style="margin-left: 80%; width: 5%" title="编辑" v-if="userName === data.userName && index === targetIndex">
               <el-link class="el-icon-edit-outline" :underline="false"></el-link>
             </span>
-            <span style="width: 5%;margin-left: 1%;" title="删除" v-if="index === targetIndex">
+            <span style="width: 5%;margin-left: 1%;" title="删除" v-if="userName === data.userName && index === targetIndex">
              <el-link class="el-icon-delete" :underline="false"></el-link>
             </span>
             <!--</div>-->
@@ -27,12 +27,13 @@
             style="overflow: hidden;text-overflow:ellipsis; white-space: nowrap;margin-left: 2%;width: 100%;margin-top: 10px">
 
               <span class="hidden-xs-only" style="width: 5%;text-align: center;">
-                <img :src="icon" style="height: 30px; margin-bottom: -10px">
+                <img :src="data.icon" style="height: 30px; margin-bottom: -10px">
               </span>
             <span class="hidden-xs-only" style="width: auto;text-align: center;">
         &nbsp;{{data.name}}</span>
 
-            <span class="el-icon-time hidden-xs-only" style="width: auto">&nbsp;{{getTime(currentDate)}}</span>
+            <!--<span class="el-icon-time hidden-xs-only" style="width: auto">&nbsp;{{getTime(data.createTime)}}</span>-->
+            <span class="el-icon-time hidden-xs-only" style="width: auto">&nbsp;{{data.createTime}}</span>
 
             <!--<span class="el-icon-chat-line-square hidden-xs-only" style="width: 10%">&nbsp;{{discussCount}}</span>-->
 
@@ -44,7 +45,7 @@
               </span>
             <span class="el-icon-view hidden-xs-only"
                   style="right: -20%;position: relative;">
-              <el-link @click="router(Index)" :underline="false">
+              <el-link @click="router(data.id)" :underline="false">
                 <span style="color: #8a8a8a">
                    &nbsp;访问人数
                 </span>
@@ -101,8 +102,7 @@
         currentDate: new Date(),
         blogViews: 0,
         discussCount: 0,
-        name: this.$store.state.user.name,
-        icon: this.$store.state.user.icon,
+        userName: this.$store.state.user.name,
         id: 1,
         current: 1,
         pageSize: 5,
@@ -124,36 +124,50 @@
           },
           sorterList: []
         }
-        // 判断是全部文章还是个人
-        let type = this.$route.params.type;
-        console.log(type)
-        if ("all" === type){
-          this.postRequest('/article/listByUserId', param).then(resp => {
-            console.log(resp.data.data)
-            this.loading = false;
-            this.articleList = resp.data.data.records;
-            this.total = resp.data.data.total;
-            if (resp && resp.status == 200) {
-            }
-          });
-        }
-        if ("user" === type){
-          this.postRequest('/article/list', param).then(resp => {
-            console.log(resp.data.data)
-            this.loading = false;
-            this.articleList = resp.data.data.records;
-            this.total = resp.data.data.total;
-            if (resp && resp.status == 200) {
-            }
-          });
-        }
-
+        this.postRequest('/article/list', param).then(resp => {
+          console.log(resp.data.data, 1)
+          this.articleList = resp.data.data.records;
+          this.total = resp.data.data.total;
+          if (resp && resp.status == 200) {
+          }
+        });
       },
       router(id) {
         scrollTo(0, 0);
         console.log(id)
         this.$router.push({ //路由跳转到文章详情
           path: '/article/' + id
+        });
+      },
+      // 编辑
+      update: function (id) {
+        console.log(id)
+        this.$router.push({ //路由跳转到文章新建
+          path: '/article/update/' + id
+        });
+      },
+      // 删除
+      deleteArt: function (id) {
+        this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+
+          this.getRequest("/article/deleteArt?id=" + id).then(resp => {
+            if (resp.status == 200) {
+              this.loadArticle();
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              });
+            }
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
         });
       },
       //时间格式化

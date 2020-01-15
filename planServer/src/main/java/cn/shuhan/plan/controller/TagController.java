@@ -61,4 +61,10 @@ public class TagController {
         return ApiResp.success();
     }
 
+    @ApiOperation("下拉tags")
+    @GetMapping("/pulldownTags")
+    public ApiResp pulldownTags() {
+        return ApiResp.success(tagService.pulldownTags());
+    }
+
 }

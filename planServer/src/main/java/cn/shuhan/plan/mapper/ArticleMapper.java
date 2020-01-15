@@ -1,5 +1,6 @@
 package cn.shuhan.plan.mapper;
 
+import cn.shuhan.plan.domain.command.ArticleCommand;
 import cn.shuhan.plan.domain.command.ArticleQueryCommand;
 import cn.shuhan.plan.domain.dto.ArticleDTO;
 import cn.shuhan.plan.domain.entity.Article;
@@ -17,4 +18,12 @@ import org.apache.ibatis.annotations.Param;
 public interface ArticleMapper extends BaseMapper<Article> {
 
     IPage<ArticleDTO> List(@Param("page") IPage page, @Param("command") ArticleQueryCommand command);
+
+    ArticleDTO getById(@Param("id") Long id);
+
+    void updateArt(ArticleCommand command);
+
+    IPage<ArticleDTO> ListByUserId(@Param("page") IPage page, @Param("command") ArticleQueryCommand command);
+
+    void deleteArt(Long id);
 }

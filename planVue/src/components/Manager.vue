@@ -6,7 +6,7 @@
       <el-aside width="20%" style="background-color: rgb(238, 241, 246)">
         <el-menu unique-opened router
                  :default-active="defaultUrl"
-                 :default-openeds="['1']">
+                  style="text-align: left">
           <template>
             <el-submenu index="1">
               <template slot="title"><i class="el-icon-message"></i>用户管理(仅管理员可见)</template>
@@ -21,7 +21,7 @@
               <template slot="title"><i class="el-icon-message"></i>文章管理</template>
               <el-menu-item-group>
                 <template slot="title"></template>
-                <el-menu-item index="2-1">发布文章</el-menu-item>
+                <!--<el-menu-item index="2-1">发布文章</el-menu-item>-->
                 <el-menu-item index="/article">管理文章</el-menu-item>
                 <el-menu-item index="/tag">添加分类</el-menu-item>
               </el-menu-item-group>
