@@ -34,10 +34,12 @@
         a.data_status AS dataStatus,
         a.create_time AS createTime,
         b.`name` AS userName,
-        b.icon AS icon
+        b.icon AS icon,
+        c.`name` AS tagName
         FROM
         article a
         LEFT JOIN user b ON a.user_id = b.id
+        LEFT JOIN tag c ON a.tag_id = c.id
         WHERE a.data_status = 1
     </select>
     <select id="getById" resultType="cn.shuhan.plan.domain.dto.ArticleDTO">

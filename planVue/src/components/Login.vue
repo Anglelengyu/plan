@@ -139,7 +139,7 @@
           username: this.loginForm.username,
           password: this.loginForm.password
         }).then(resp => {
-          _this.loading = false;
+          this.loading = false;
           if (resp && resp.status == 200) {
             var data = resp.data;
             _this.$store.commit('login', data.obj);
@@ -161,7 +161,7 @@
           telephone: this.form.telephone,
           address: this.form.address
         }).then(resp => {
-          _this.loading = false;
+          this.loading = false;
           if (resp && resp.status == 200) {
             _this.registerFormVisible = false;
             var data = resp.data;

@@ -116,7 +116,6 @@
     methods: {
       loadArticle() {
         console.log(this.$store.state.user)
-        this.loading = true;
         const param = {
           pagination: {
             current: this.current,

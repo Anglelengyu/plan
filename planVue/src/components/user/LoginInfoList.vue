@@ -56,7 +56,6 @@
     methods: {
       // 获取所有用户登录信息
       loadLoginInfoList: function () {
-        this.loading = true;
         const param = {
           pagination: {
             current: this.current,

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shuhan.plan.mapper.ReplyMapper">
+    <insert id="insertReply">
+        INSERT INTO
+        reply
+        ( article_id,
+        reply_pid,
+        user_id,
+        responder,
+        `time`,
+        content)
+        VALUES
+        (#{command.articleId},#{command.replyPid},#{command.userId},#{command.responder},#{command.time},#{command.content})
+    </insert>
+    <update id="updateStatus">
+        UPDATE
+        reply
+        SET
+        data_status = #{dataStatus}
+        WHERE id = #{id}
+    </update>
+    <select id="listAllReply" resultType="cn.shuhan.plan.domain.dto.ReplyDTO">
+        SELECT
+        id,
+        article_id AS articleId,
+        reply_pid AS replyPid,
+        user_id AS userId,
+        responder,
+        `time`,
+        content
+        FROM
+        reply
+        WHERE
+        article_id = #{articleId}
+        AND data_status = 1
+    </select>
+</mapper>
+
+

@@ -5,7 +5,7 @@
              :model="form"
              label-width="80px">
       <el-row :gutter="20">
-        <el-col span="6">
+        <el-col :span="6">
           <el-form-item label="分类" prop="tag" label-position="left">
             <el-select style="width: 100%" clearable v-model="form.tag" placeholder="请选择">
               <el-option
@@ -17,7 +17,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col span="6">
+        <el-col :span="6">
           <el-form-item label="发布时间">
             <el-date-picker type="date" placeholder="选择日期" v-model="form.issueDate" style="width: 100%;">
             </el-date-picker>

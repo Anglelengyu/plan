@@ -116,7 +116,6 @@
     methods: {
       loadArticle() {
         console.log(this.$store.state.user)
-        this.loading = true;
         const param = {
           pagination: {
             current: this.current,
@@ -130,7 +129,6 @@
         if ("all" === type){
           this.postRequest('/article/listByUserId', param).then(resp => {
             console.log(resp.data.data)
-            this.loading = false;
             this.articleList = resp.data.data.records;
             this.total = resp.data.data.total;
             if (resp && resp.status == 200) {
@@ -140,7 +138,6 @@
         if ("user" === type){
           this.postRequest('/article/list', param).then(resp => {
             console.log(resp.data.data)
-            this.loading = false;
             this.articleList = resp.data.data.records;
             this.total = resp.data.data.total;
             if (resp && resp.status == 200) {

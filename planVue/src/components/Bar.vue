@@ -118,12 +118,10 @@
       //登录
       userLogin: function () {
         var _this = this;
-        this.loading = true;
         _this.postRequest('/login', {
           username: this.loginForm.username,
           password: this.loginForm.password
         }).then(resp => {
-          this.loading = false;
 
           // _this.$store.commit('login', resp.data.data)
           // console.log(resp.data.data)

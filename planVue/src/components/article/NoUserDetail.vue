@@ -9,7 +9,7 @@
              :model="form"
              label-width="80px">
       <el-row :gutter="20">
-        <el-col span="6">
+        <el-col :span="6">
           <el-form-item label="分类"
                         prop="tag"
                         label-position="left">
@@ -17,7 +17,7 @@
                       :disabled="true"></el-input>
           </el-form-item>
         </el-col>
-        <el-col span="6">
+        <el-col :span="6">
           <el-form-item label="发布时间">
             <el-input v-model="form.issueDate"
                       :disabled="true"></el-input>

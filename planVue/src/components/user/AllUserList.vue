@@ -68,7 +68,6 @@
     methods:{
       // 获取所有用户
       loadUserList: function(){
-        this.loading = true;
         const param = {
           pagination: {
             current: this.current,
@@ -81,7 +80,6 @@
         // let url = "/" + this.currentPage + "/" + this.pageSize;
         // console.log(url)
         this.postRequest('/user/list',param).then(resp => {
-          this.loading = false;
           this.items = resp.data.data.records;
           this.total = resp.data.data.total;
 

@@ -124,7 +124,6 @@
     methods: {
       loadArticle() {
         console.log(this.$store.state.user)
-        this.loading = true;
         const param = {
           pagination: {
             current: this.current,
@@ -157,7 +156,7 @@
       },
       // 删除
       deleteArt: function (id) {
-        this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+        this.$confirm('此操作将永久删除该文章, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'

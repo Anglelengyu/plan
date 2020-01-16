@@ -41,7 +41,7 @@
                             style="width: 100%;"></el-date-picker>
           </el-form-item>
         </el-col>
-        <el-col span="7">
+        <el-col :span="7">
           <el-form-item label="住址" prop="address">
             <el-input v-model="detailForm.address"></el-input>
           </el-form-item>

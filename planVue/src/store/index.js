@@ -8,6 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: {
+      id: window.localStorage.getItem('id') == null ? '未登录' : window.localStorage.getItem('id'),
       name: window.localStorage.getItem('name') == null ? '未登录' : window.localStorage.getItem('name'),
       icon: window.localStorage.getItem('icon') == null ? '' : window.localStorage.getItem('icon'),
       username: window.localStorage.getItem('username') == null ? '' : window.localStorage.getItem('username'),
@@ -29,6 +30,7 @@ export default new Vuex.Store({
       // console.log(state);
       // console.log(data);
       state.user = data
+      window.localStorage.setItem('id', data.id);
       window.localStorage.setItem('name', data.name);
 
       //存储用户名
