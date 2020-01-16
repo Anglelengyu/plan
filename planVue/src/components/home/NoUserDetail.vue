@@ -207,6 +207,8 @@
         return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
       },
       pEnter: function (replyId) {
+        console.log(replyId,1)
+        console.log(this.user.id,2)
         this.choiceReplyId = replyId
       },
       pLeave: function () {

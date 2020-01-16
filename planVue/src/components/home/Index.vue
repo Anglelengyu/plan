@@ -61,7 +61,7 @@
                   &nbsp;评论数
                 </span>
                 <span style="color: #3399ea">
-                  {{discussCount}}
+                  {{data.replyCount}}
                 </span>
               </el-link>
           </span>
@@ -101,7 +101,6 @@
         targetIndex: -1,
         currentDate: new Date(),
         blogViews: 0,
-        discussCount: 0,
         userName: this.$store.state.user.name,
         id: 1,
         current: 1,

@@ -48,6 +48,9 @@ public class ArticleDTO{
     @ApiModelProperty(value = "发布状态 默认1 1-发布 0-草稿箱")
     private Integer issueStatus;
 
+    @ApiModelProperty(value = "评论数")
+    private Integer replyCount;
+
     @ApiModelProperty(value = "自动发布时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

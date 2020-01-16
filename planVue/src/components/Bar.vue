@@ -136,9 +136,9 @@
             //存入用户信息
             _this.$store.commit('login', resp.data.data)
             console.log(this.$store.state.user);
-            var path = _this.$route.query.redirect;
-            _this.$router
-              .replace({path: path == '/' || path == undefined ? '/manager' : path});
+            // var path = _this.$route.query.redirect;
+            // _this.$router
+            //   .replace({path: path == '/' || path == undefined ? '/manager' : path});
           }
         });
       },
@@ -148,6 +148,7 @@
 
         })
         this.$store.commit('logout')
+        window.location.href = '/'
       }
     }
   }

@@ -45,6 +45,8 @@ export default new Vuex.Store({
       window.localStorage.setItem('roles', data.roles)
     },
     logout(state) {
+      window.localStorage.removeItem('id');
+      this.state.user.id = '';
       window.localStorage.removeItem('name');
       this.state.user.name = '';
       window.localStorage.removeItem('username');

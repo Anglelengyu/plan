@@ -20,6 +20,17 @@
         data_status = #{dataStatus}
         WHERE id = #{id}
     </update>
+    <update id="updateStatusBatch">
+        UPDATE
+        reply
+        SET
+        data_status = #{dataStatus}
+        WHERE
+        id in
+        <foreach collection="allId" open="(" close=")" item="id" separator=",">
+            #{id}
+        </foreach>
+    </update>
     <select id="listAllReply" resultType="cn.shuhan.plan.domain.dto.ReplyDTO">
         SELECT
         id,
@@ -34,6 +45,20 @@
         WHERE
         article_id = #{articleId}
         AND data_status = 1
+    </select>
+    <select id="ListByReplyId" resultType="cn.shuhan.plan.domain.entity.Reply">
+        SELECT
+        id,
+        article_id AS articleId,
+        reply_pid AS replyPid,
+        user_id AS userId,
+        responder,
+        `time`,
+        content
+        FROM
+        reply
+        WHERE
+        reply_pid = #{id}
     </select>
 </mapper>
 

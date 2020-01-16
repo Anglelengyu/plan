@@ -23,4 +23,8 @@ public interface ReplyMapper extends BaseMapper<Reply> {
     void insertReply(@Param("command") ReplyCommand command);
 
     void updateStatus(@Param("id") Long id,@Param("dataStatus") Integer dataStatus);
+
+    void updateStatusBatch(@Param("allId")List<Long> allId,@Param("dataStatus") Integer dataStatus);
+
+    List<Reply> ListByReplyId(@Param("id") Long id);
 }

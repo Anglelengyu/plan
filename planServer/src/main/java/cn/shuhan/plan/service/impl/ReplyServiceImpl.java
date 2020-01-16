@@ -17,7 +17,9 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -42,7 +44,7 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
             return null;
         }
         // 获取评论层级
-        List<ReplyDTO> dtos = getRepyTree(replies);
+        List<ReplyDTO> dtos = getReplyTree(replies);
         return dtos;
     }
 
@@ -53,10 +55,30 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
 
     @Override
     public void delete(Long id) {
-        replyMapper.updateStatus(id,DataStatusEnum.DELETED.code);
+        replyMapper.updateStatus(id, DataStatusEnum.DELETED.code);
+        // 同时删除子评论
+        List<Long> allId = new ArrayList<>();
+        deleteChildrenReply(allId, id);
+
+        if (!CollectionUtils.isEmpty(allId)) {
+            replyMapper.updateStatusBatch(allId, DataStatusEnum.DELETED.code);
+        }
     }
 
-    private List<ReplyDTO> getRepyTree(List<ReplyDTO> replies) {
+    private void deleteChildrenReply(List<Long> allId, Long id) {
+        List<Reply> replies = replyMapper.ListByReplyId(id);
+        if (CollectionUtils.isEmpty(replies)) {
+            return;
+        }
+        List<Long> collect = replies.stream().map(Reply::getId).collect(Collectors.toList());
+        for (Long aLong : collect) {
+            allId.add(aLong);
+            deleteChildrenReply(allId, aLong);
+        }
+
+    }
+
+    private List<ReplyDTO> getReplyTree(List<ReplyDTO> replies) {
         // 所有上层
         List<ReplyDTO> collect = replies.stream().filter(e -> null == e.getReplyPid()).collect(Collectors.toList());
         List<ReplyDTO> dtoList = new ArrayList<>();
